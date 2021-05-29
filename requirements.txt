@@ -1,4 +1,4 @@
-pyrogram
+pyrogram==1.0.7
 TgCrypto
 python-dotenv
 hachoir
