@@ -31,11 +31,11 @@ def encode_video(app, message):
       try:
         file = message.forward(chat_id=log_channel)
             #trace_msg = file.reply_text(f"**User Name:** {message.from_user.mention(style="md")}\n\n**User Id:** `{message.from_user.id}`")
-    else:        
-      if message.document:
-        if not message.document.mime_type in video_mimetype:
-          message.reply_text("```Invalid Video !\nMake sure its a valid video file.```", quote=True)
-          return
+      
+    if message.document:
+      if not message.document.mime_type in video_mimetype:
+        message.reply_text("```Invalid Video !\nMake sure its a valid video file.```", quote=True)
+        return
     message.reply_text("```Added to queue...```", quote=True)
     data.append(message)
     if len(data) == 1:
