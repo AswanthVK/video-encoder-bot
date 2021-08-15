@@ -29,7 +29,7 @@ def encode_video(app, message):
     trace_msg = None
     if log_channel:
         try:
-            file = message.forward(log_channel)
+            file = message.forward(chat_id=log_channel)
             trace_msg = file.reply_text(f"**User Name:** {message.from_user.mention(style="md")}\n\n**User Id:** `{message.from_user.id}`")
           
     if message.document:
