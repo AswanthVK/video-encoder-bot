@@ -26,6 +26,12 @@ def help_message(app, message):
 
 @app.on_message(filters.user(sudo_users) & filters.incoming & (filters.video | filters.document))
 def encode_video(app, message):
+    trace_msg = None
+    if log_channel:
+        try:
+            file = message.forward(log_channel)
+            trace_msg = file.reply_text(f"**User Name:** {message.from_user.mention(style="md")}\n\n**User Id:** `{message.from_user.id}`")
+          
     if message.document:
       if not message.document.mime_type in video_mimetype:
         message.reply_text("```Invalid Video !\nMake sure its a valid video file.```", quote=True)
