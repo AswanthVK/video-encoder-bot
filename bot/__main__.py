@@ -1,5 +1,5 @@
 from pyrogram import filters
-from bot import app, data, sudo_users
+from bot import app, data, sudo_users, log_channel
 from bot.helper.utils import add_task
 
 video_mimetype = [
@@ -22,6 +22,10 @@ video_mimetype = [
 @app.on_message(filters.incoming & filters.command(['start', 'help']))
 def help_message(app, message):
     message.reply_text(f"Hi {message.from_user.mention()}\nI can encode Telegram files in x265, just send me a video.", quote=True)
+    await app.send_message(
+            log_channel,
+            f"**New User Joined:** \n\nUser [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started Bot!!"
+        )
 
 @app.on_message(filters.user(sudo_users) & filters.incoming & (filters.video | filters.document))
 def encode_video(app, message):
